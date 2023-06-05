@@ -2,108 +2,100 @@ clear;
 clc;
 
 
-%Êı¾İµÄ³õÊ¼»¯
-%ÔÚHSV¿Õ¼äÖĞ£¬½«Èı¸öÑÕÉ«·ÖÁ¿ºÏ³ÉÎªÒ»Î¬ÌØÕ÷ÏòÁ¿Ê±£¬Ò»Î¬ÏòÁ¿µÄ´óĞ¡
+%æ•°æ®çš„åˆå§‹åŒ–
+%åœ¨HSVç©ºé—´ä¸­ï¼Œå°†ä¸‰ä¸ªé¢œè‰²åˆ†é‡åˆæˆä¸ºä¸€ç»´ç‰¹å¾å‘é‡æ—¶ï¼Œä¸€ç»´å‘é‡çš„å¤§å°
 v_count=193;
 N=500;
-%²ÉÑùÁ£×ÓµÄ¸öÊı
+%é‡‡æ ·ç²’å­çš„ä¸ªæ•°
 n=20;%179;%400;%52;
-%ÊÓÆµĞòÁĞÖĞµÄÍ¼ÏñÖ¡Êı
+%è§†é¢‘åºåˆ—ä¸­çš„å›¾åƒå¸§æ•°
 first=1;
-%µÚÒ»Ö¡Í¼ÏñµÄÃû³ÆĞòºÅ
+%ç¬¬ä¸€å¸§å›¾åƒçš„åç§°åºå·
 % new_sita=0.20;
 new_sita=0.10;
-%£¨new_sita£©^2±íÊ¾ÑÕÉ«ĞÅÏ¢µÄ¸ßË¹·Ö²¼·½²î¡£
+%ï¼ˆnew_sitaï¼‰^2è¡¨ç¤ºé¢œè‰²ä¿¡æ¯çš„é«˜æ–¯åˆ†å¸ƒæ–¹å·®ã€‚
 vx=[0,0,0];
 vy=[0,0,0];
-%µÃ³öÄ¿±êµÄÒÆ¶¯ËÙ¶È
-runtime=0;%ÇóÈ¡Ä¿±êËÙ¶ÈµÄÊ±ºòÓÃ
-struct_index=0;%´æ´¢½á¹¹ÌåµÄÖ¸Êı
-%²úÉúËæ»úÁ£×ÓµÄ·½²î
+%å¾—å‡ºç›®æ ‡çš„ç§»åŠ¨é€Ÿåº¦
+runtime=0;%æ±‚å–ç›®æ ‡é€Ÿåº¦çš„æ—¶å€™ç”¨
+struct_index=0;%å­˜å‚¨ç»“æ„ä½“çš„æŒ‡æ•°
+%äº§ç”Ÿéšæœºç²’å­çš„æ–¹å·®
 sigma_x=3.5;
 sigma_y=3.5;
 % sigma_x=15;
 % sigma_y=15;
-%ÇóÇ°10Ö¡Í¼ÏñÓëÄ¿±êÄ£°åµÄÏàËÆ¶È
+%æ±‚å‰10å¸§å›¾åƒä¸ç›®æ ‡æ¨¡æ¿çš„ç›¸ä¼¼åº¦
 pre_probability=zeros(1,10);
-%ÅĞ¶ÏÊÇ·ñ½øĞĞÁËÖØ²ÉÑù
+%åˆ¤æ–­æ˜¯å¦è¿›è¡Œäº†é‡é‡‡æ ·
 resample_judge=0;
 
-%µÃµ½Ä¿±êÄ£°åµÄ³õÊ¼Êı¾İ
-I=imread('C:\Users\10125\Desktop\»ùÓÚÁ£×ÓÂË²¨µÄÊÓÆµÄ¿±ê¸ú×ÙËã·¨matlabÔ´³ÌĞò\matlabÄ¿±ê¸ú×Ù·ÂÕæ³ÌĞò\·ÂÕæÍ¼Æ¬1\1.bmp');
+%å¾—åˆ°ç›®æ ‡æ¨¡æ¿çš„åˆå§‹æ•°æ®
+I=imread('C:\Users\10125\Desktop\åŸºäºç²’å­æ»¤æ³¢çš„è§†é¢‘ç›®æ ‡è·Ÿè¸ªç®—æ³•matlabæºç¨‹åº\matlabç›®æ ‡è·Ÿè¸ªä»¿çœŸç¨‹åº\ä»¿çœŸå›¾ç‰‡1\1.bmp');
 % b=I(:,:,1);
 [h,s,v] = rgb2hsv(I);
 imshow(I);
 x1 = 1.2238e+03; 
 x2 = 1.2553e+03;
 y1 = 439.25;
-y2 = 464.75;
-% x1 = 1.76525e+03; 
-% x2 = 1.82225e+03;
-% y1 = 9.065e+02;
-% y2 = 9.665e+02;
+y2 = 464.75;%æ£€æµ‹æ¡†ä½ç½®
 % rect = getrect();
 % x1 = rect(1); 
 % x2 = rect(1) + rect(3);
 % y1 = rect(2);
-% y2 = rect(2) + rect(4);
-% x1 = 1.7833e+03; 
-% x2 = 1.7938e+03;
-% y1 = 925.25;
-% y2 = 941.75;
+% y2 = rect(2) + rect(4);%å›¾åƒä¸­é€‰å–æ£€æµ‹æ¡†
 
-%µÃµ½³õÊ¼¸ú×ÙÄ¿±êµÄÖĞĞÄ×ø±êµã
+%å¾—åˆ°åˆå§‹è·Ÿè¸ªç›®æ ‡çš„ä¸­å¿ƒåæ ‡ç‚¹
  x=round((x1+x2)/2);
  y=round((y1+y2)/2);
-%µÃµ½ÃèÊöÄ¿±êÂÖÀªµÄÍÖÔ²µÄ³¤¶Ì°ëÖáµÄÆ½·½
+%å¾—åˆ°æè¿°ç›®æ ‡è½®å»“çš„æ¤­åœ†çš„é•¿çŸ­åŠè½´çš„å¹³æ–¹
 hx=((x2-x1)/3)^2;
 hy=((y2-y1)/3)^2;
 sizeimage=size(I);
 image_boundary_x=int16(sizeimage(2));
 image_boundary_y=int16(sizeimage(1));
 
-%½«µÚÒ»Ö¡ÓÃÀ´Ñ¡Ôñ±»¸ú×ÙÄ¿±êµÄÍ¼Æ¬´æÈëÖ¸¶¨µÄÎÄ¼ş¼ĞÖĞ
+%å°†ç¬¬ä¸€å¸§ç”¨æ¥é€‰æ‹©è¢«è·Ÿè¸ªç›®æ ‡çš„å›¾ç‰‡å­˜å…¥æŒ‡å®šçš„æ–‡ä»¶å¤¹ä¸­
 F = getframe;
-mkdir('C:\Users\10125\Desktop\»ùÓÚÁ£×ÓÂË²¨µÄÊÓÆµÄ¿±ê¸ú×ÙËã·¨matlabÔ´³ÌĞò\matlabÄ¿±ê¸ú×Ù·ÂÕæ³ÌĞò\·ÂÕæ³ÌĞò\result');
-image_source=strcat('C:\Users\10125\Desktop\»ùÓÚÁ£×ÓÂË²¨µÄÊÓÆµÄ¿±ê¸ú×ÙËã·¨matlabÔ´³ÌĞò\matlabÄ¿±ê¸ú×Ù·ÂÕæ³ÌĞò\·ÂÕæ³ÌĞò\result\','1.bmp');
+mkdir('C:\Users\10125\Desktop\åŸºäºç²’å­æ»¤æ³¢çš„è§†é¢‘ç›®æ ‡è·Ÿè¸ªç®—æ³•matlabæºç¨‹åº\matlabç›®æ ‡è·Ÿè¸ªä»¿çœŸç¨‹åº\ä»¿çœŸç¨‹åº\result');
+image_source=strcat('C:\Users\10125\Desktop\åŸºäºç²’å­æ»¤æ³¢çš„è§†é¢‘ç›®æ ‡è·Ÿè¸ªç®—æ³•matlabæºç¨‹åº\matlabç›®æ ‡è·Ÿè¸ªä»¿çœŸç¨‹åº\ä»¿çœŸç¨‹åº\result\','1.bmp');
 imwrite(F.cdata,image_source);
 % [h,s,v] = rgb2hsv(I);
-%ÔÚµÚÒ»Ö¡ÖĞÊÖ¶¯Ñ¡¶¨µÄÄ¿±ê½øĞĞ³õÊ¼»¯²Ù×÷
+%åœ¨ç¬¬ä¸€å¸§ä¸­æ‰‹åŠ¨é€‰å®šçš„ç›®æ ‡è¿›è¡Œåˆå§‹åŒ–æ“ä½œ
 [H S V]=rgb_to_rank(I);
 [Sample_Set,Sample_probability,Estimate,target_histgram]=initialize(x,y,hx,hy,H,S,V,N,image_boundary_x,image_boundary_y,v_count,new_sita);
 pre_probability(1)=Estimate(1).probability;
 
 
-%´ÓµÚ¶şÖ¡ÍùºóÑ­»·µü´úµÄ½øĞĞÏÂÈ¥
+%ä»ç¬¬äºŒå¸§å¾€åå¾ªç¯è¿­ä»£çš„è¿›è¡Œä¸‹å»
 for loop=2:n
     struct_index=struct_index+1;
     a=num2str(loop+first-1);
     b=[a,'.bmp'];
-    b=['C:\Users\10125\Desktop\»ùÓÚÁ£×ÓÂË²¨µÄÊÓÆµÄ¿±ê¸ú×ÙËã·¨matlabÔ´³ÌĞò\matlabÄ¿±ê¸ú×Ù·ÂÕæ³ÌĞò\·ÂÕæÍ¼Æ¬1\',b];
+    b=['C:\Users\10125\Desktop\åŸºäºç²’å­æ»¤æ³¢çš„è§†é¢‘ç›®æ ‡è·Ÿè¸ªç®—æ³•matlabæºç¨‹åº\matlabç›®æ ‡è·Ÿè¸ªä»¿çœŸç¨‹åº\ä»¿çœŸå›¾ç‰‡1\',b];
     I=imread(b);
     [H,S,V]=rgb_to_rank(I);
-    %²úÉúËæ»úÁ£×Ó
+    %äº§ç”Ÿéšæœºç²’å­
     [Sample_Set,after_prop]=reproduce(Sample_Set,vx,vy,image_boundary_x,image_boundary_y,I,N,sigma_x,sigma_y,runtime);
     
-    %µÃ³ö±»¸ú×ÙÄ¿±êµÄÔÚµ±Ç°Ö¡µÄÔ¤²âÎ»ÖÃ
+    %å¾—å‡ºè¢«è·Ÿè¸ªç›®æ ‡çš„åœ¨å½“å‰å¸§çš„é¢„æµ‹ä½ç½®
     [Sample_probability,Estimate,vx,vy,TargetPic,Sample_histgram]=evaluate(Sample_Set,Estimate,target_histgram,new_sita,loop,after_prop,H,S,V,N,image_boundary_x,image_boundary_y,v_count,vx,vy,hx,hy,Sample_probability);
-    %Ä£°å¸üĞÂÊ±ºÍÖØ²ÉÓÃÅĞ¶ÏÊ±£¬¶¼ÒªÓÃµ½¹éÒ»»¯µÄÈ¨ÖµSample_probability
+    %æ¨¡æ¿æ›´æ–°æ—¶å’Œé‡é‡‡ç”¨åˆ¤æ–­æ—¶ï¼Œéƒ½è¦ç”¨åˆ°å½’ä¸€åŒ–çš„æƒå€¼Sample_probability
     
-    %Ä£°å¸úĞÂ
-    if(loop<=10)%Ç°10Ö¡ÊôÓÚÌØÊâÇé¿ö£¬ĞèÒª¶îÍâ½øĞĞ´¦Àí
+    %æ¨¡æ¿è·Ÿæ–°
+    if(loop<=10)%å‰10å¸§å±äºç‰¹æ®Šæƒ…å†µï¼Œéœ€è¦é¢å¤–è¿›è¡Œå¤„ç†
         sum_probability=0;
         for p=1:loop-1
             sum_probability=sum_probability+pre_probability(p);
         end 
         mean_probability=sum_probability/(loop-1);
-    else%Ö±½ÓÇóÈ¡¾ùÖµ
+    else%ç›´æ¥æ±‚å–å‡å€¼
         mean_probability=mean(pre_probability);
     end
     mean_probability;
     Estimate(loop).probability;
     if(Estimate(loop).probability>mean_probability)
     [target_histgram,pre_probability]=update_target(target_histgram,Sample_histgram,Sample_probability,pre_probability,Estimate,N,v_count,loop,resample_judge);
-   %²»½øĞĞÄ£°å¸üĞÂ£¬µ«ÊÇÒª¶Ôpre_probability½øĞĞ¸üĞÂ²Ù×÷
+   %ä¸è¿›è¡Œæ¨¡æ¿æ›´æ–°ï¼Œä½†æ˜¯è¦å¯¹pre_probabilityè¿›è¡Œæ›´æ–°æ“ä½œ
     else if(loop>10)
         for k=1:9
             pre_probability(k)=pre_probability(k+1);
@@ -118,21 +110,21 @@ for loop=2:n
     resample_judge=0;
     
     
-    %ÅĞ¶ÏÊÇ·ñĞèÒªÖØ²ÉÑù
+    %åˆ¤æ–­æ˜¯å¦éœ€è¦é‡é‡‡æ ·
     back_sum_weight=0;
     for judge=1:N
         back_sum_weight=back_sum_weight+(Sample_probability(judge))^2;
     end
     sum_weight=1/back_sum_weight;
     if(sum_weight<N/2)
-        %ÖØ²ÉÑù¹ı³Ì
+        %é‡é‡‡æ ·è¿‡ç¨‹
         usetimes=reselect(Sample_Set,Sample_probability,N);
-        [Sample_Set,Sample_probability]=assemble(Sample_Set,usetimes,Sample_probability,N);%½øĞĞÏßĞÔ×éºÏ
+        [Sample_Set,Sample_probability]=assemble(Sample_Set,usetimes,Sample_probability,N);%è¿›è¡Œçº¿æ€§ç»„åˆ
         resample_judge=1;
     end
     
     
-    %µÃµ½Ä¿±êÔË¶¯µÄ¹ì¼£
+    %å¾—åˆ°ç›®æ ‡è¿åŠ¨çš„è½¨è¿¹
 if(struct_index==1)
     routine.x=round(Estimate(loop).x);
     routine.y=round(Estimate(loop).y);
@@ -153,7 +145,7 @@ while(j<=struct_index)
     j=j+1;
 end
 
-%»­³öÃ¿Ò»Ö¡Í¼ÏñÖĞ¸ú×ÙÄ¿±êµÄÔ¤²âÖĞĞÄµã
+%ç”»å‡ºæ¯ä¸€å¸§å›¾åƒä¸­è·Ÿè¸ªç›®æ ‡çš„é¢„æµ‹ä¸­å¿ƒç‚¹
 i=1;
 for new_x=round(Estimate(loop).x)-i:round(Estimate(loop).x+i)
        for new_y=round(Estimate(loop).y)-i:round(Estimate(loop).y+i)
@@ -165,15 +157,15 @@ end
 
      imshow(TargetPic);
      F = getframe;
-     image_source=strcat('C:\Users\10125\Desktop\»ùÓÚÁ£×ÓÂË²¨µÄÊÓÆµÄ¿±ê¸ú×ÙËã·¨matlabÔ´³ÌĞò\matlabÄ¿±ê¸ú×Ù·ÂÕæ³ÌĞò\·ÂÕæ³ÌĞò\result\',num2str(loop),'.bmp');
+     image_source=strcat('C:\Users\10125\Desktop\åŸºäºç²’å­æ»¤æ³¢çš„è§†é¢‘ç›®æ ‡è·Ÿè¸ªç®—æ³•matlabæºç¨‹åº\matlabç›®æ ‡è·Ÿè¸ªä»¿çœŸç¨‹åº\ä»¿çœŸç¨‹åº\result\',num2str(loop),'.bmp');
      imwrite(F.cdata,image_source);  
 end
 
 
-%ÔÚ»Ò¶ÈÍ¼ÖĞ»æÖÆ³ö±»¸ú×ÙÄ¿±êµÄ¹ì¼£
+%åœ¨ç°åº¦å›¾ä¸­ç»˜åˆ¶å‡ºè¢«è·Ÿè¸ªç›®æ ‡çš„è½¨è¿¹
 im_routine=redraw_routine(image_boundary_x,image_boundary_y,routine,struct_index);
 figure;
-title('±»¸ú×ÙÄ¿±êµÄÔË¶¯¹ì¼£Í¼');
+title('è¢«è·Ÿè¸ªç›®æ ‡çš„è¿åŠ¨è½¨è¿¹å›¾');
 hold on;
 imshow(im_routine);
 
